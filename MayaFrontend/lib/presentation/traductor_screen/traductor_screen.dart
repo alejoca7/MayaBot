@@ -8,8 +8,14 @@ import 'package:mayatraductor/widgets/custom_elevated_button.dart';
 import 'package:mayatraductor/core/app_export.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:just_audio/just_audio.dart';
 
-class TraductorScreen extends StatelessWidget {
+class TraductorScreen extends StatefulWidget {
+  @override
+  _TraductorScreenState createState() => _TraductorScreenState();
+}
+
+class _TraductorScreenState extends State<TraductorScreen> {
   final TextEditingController textEditingControllerEsp =
       TextEditingController();
   final TextEditingController textEditingControllerQeqchi =
@@ -19,6 +25,14 @@ class TraductorScreen extends StatelessWidget {
     height: 30.adaptSize,
     width: 30.adaptSize,
   );
+  final AudioPlayer _audioPlayer = AudioPlayer();
+  bool _isPlaying = false;
+
+  @override
+  void dispose() {
+    _audioPlayer.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -269,7 +283,12 @@ class TraductorScreen extends StatelessWidget {
                 Positioned(
                   right: 12.h,
                   top: 12.v,
-                  child: bocina,
+                  child: GestureDetector(
+                    onTap: () {
+                      _onTapBocina(context, textEditingController.text);
+                    },
+                    child: bocina,
+                  ),
                 ),
             ],
           ),
@@ -277,6 +296,29 @@ class TraductorScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _onTapBocina(BuildContext context, String palabraTraducida) async {
+    if (!_isPlaying) {
+      try {
+        // Aquí debes reemplazar la URL con la ruta correcta a tu archivo de audio
+        final audioUri =
+            'https://github.com/alejoca7/Mayabot/raw/38c5e1ebe42c38d58b2bf258a641d63c69459d8d/MayaBackend/audio/$palabraTraducida.m4a';
+
+        await _audioPlayer.setUrl(audioUri);
+        await _audioPlayer.play();
+        _isPlaying = true;
+        _audioPlayer.playerStateStream.listen((event) {
+          if (event.processingState == ProcessingState.completed) {
+            setState(() {
+              _isPlaying = false;
+            });
+          }
+        });
+      } catch (e) {
+        print('Error al reproducir el audio: $e');
+      }
+    }
   }
 
   void _onTapTraducir(BuildContext context) async {
