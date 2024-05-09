@@ -3,7 +3,7 @@
 MayaBot API es una API RESTful diseñada para ofrecer servicios de traducción del español al idioma maya Q’eqchi’. Utiliza tecnologías modernas para proporcionar una experiencia rápida y confiable en la traducción de palabras y frases del español al maya Q’eqchi’.
 
 ## Descripción
-La MayaBot API permite a los desarrolladores integrar fácilmente la funcionalidad de traducción en sus aplicaciones móviles y web. Utilizando esta API, los usuarios pueden enviar solicitudes para traducir palabras y frases del español al maya Q’eqchi’ de manera rápida y precisa.
+La MayaBot API permite a los usuarios pueden enviar solicitudes para traducir palabras y frases del español al maya Q’eqchi’ de manera rápida y precisa.
 
 ## Endpoints Disponibles
 GET /users: Obtiene la lista de usuarios registrados en la plataforma.
