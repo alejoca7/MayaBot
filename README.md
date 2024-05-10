@@ -41,3 +41,19 @@ Instala todas las dependencias del proyecto utilizando el comando flutter pub ge
 Ejecuta la aplicación en un emulador o dispositivo físico utilizando el comando flutter run.
 Una vez que la aplicación esté en funcionamiento, podrás utilizarla para traducir palabras y frases del español al maya Q’eqchi’ de forma interactiva.
 
+## Configuración de la Base de Datos
+MayaBot utiliza una base de datos PostgreSQL para almacenar la información de los usuarios. Sigue estos pasos para configurar la base de datos:
+
+Instala PostgreSQL en tu máquina local si aún no lo has hecho.
+Crea una nueva base de datos con el nombre mayabot.
+Ejecuta el script SQL database.sql ubicado en la carpeta database para crear las tablas necesarias en la base de datos.
+Levantar el Contenedor de la Base de Datos
+También puedes optar por ejecutar la base de datos PostgreSQL en un contenedor de Docker. Sigue estos pasos:
+
+Asegúrate de tener Docker instalado en tu máquina.
+Ejecuta el siguiente comando en la terminal para crear y levantar un contenedor PostgreSQL:
+```
+docker run --name mayabot-db -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres
+```
+Este comando crea un contenedor con el nombre mayabot-db, establece la contraseña de la base de datos como mysecretpassword y expone el puerto 5432.
+
