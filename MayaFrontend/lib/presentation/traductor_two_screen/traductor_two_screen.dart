@@ -284,7 +284,7 @@ class TraductorTwoScreen extends StatelessWidget {
 
     try {
       final response = await http.get(
-        Uri.parse('http://192.168.1.73:3001/translations/maya/$mayaWord'),
+        Uri.parse('http://192.168.43.155:3001/translations/maya/$mayaWord'),
       );
 
       if (response.statusCode == 200) {

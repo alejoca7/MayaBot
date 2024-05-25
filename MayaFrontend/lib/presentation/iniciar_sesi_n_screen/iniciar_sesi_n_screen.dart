@@ -248,7 +248,7 @@ class IniciarSesiNScreen extends StatelessWidget {
 
     try {
       final response = await http.post(
-        Uri.parse('http://192.168.1.73:3001/auth'),
+        Uri.parse('http://192.168.43.155:3001/auth'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },

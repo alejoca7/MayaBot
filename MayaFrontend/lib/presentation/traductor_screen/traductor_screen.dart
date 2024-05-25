@@ -326,7 +326,8 @@ class _TraductorScreenState extends State<TraductorScreen> {
 
     try {
       final response = await http.get(
-        Uri.parse('http://192.168.1.73:3001/translations/spanish/$spanishWord'),
+        Uri.parse(
+            'http://192.168.43.155:3001/translations/spanish/$spanishWord'),
       );
 
       if (response.statusCode == 200) {

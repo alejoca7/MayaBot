@@ -6,11 +6,11 @@ import (
 	"github.com/alejoca7/mayabackend/db"
 	"github.com/alejoca7/mayabackend/models"
 	"github.com/alejoca7/mayabackend/routes"
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
 
 func main() {
-
 	db.DBconnection()
 
 	db.DB.AutoMigrate(models.Task{})
@@ -34,5 +34,14 @@ func main() {
 	r.HandleFunc("/translations/spanish/{spanish_word}", routes.GetTranslationBySpanishWordHandler).Methods("GET")
 	r.HandleFunc("/translations/maya/{maya_word}", routes.GetTranslationByMayaWordHandler).Methods("GET")
 
-	http.ListenAndServe(":3001", r)
+	// Configuración del middleware CORS
+	corsOptions := handlers.CORS(
+		handlers.AllowedOrigins([]string{"*"}),
+		handlers.AllowedMethods([]string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"}),
+		handlers.AllowedHeaders([]string{"Content-Type", "Authorization"}),
+		handlers.ExposedHeaders([]string{"Content-Length"}),
+		handlers.AllowCredentials(),
+	)
+
+	http.ListenAndServe(":3001", corsOptions(r))
 }
